@@ -1,0 +1,77 @@
+from datetime import datetime
+
+def cadastrar_usuario():
+    print("--------------------------")
+    print("\nInsira seu email e senha")
+    email = input("\nEmail: ").strip()
+    senha = input("Senha: ").strip()
+
+    print("--------------------------")
+    print("Confirme seu email e senha")
+    email_confirmacao = input("\nEmail: ").strip()
+    senha_confirmacao = input("Senha: ").strip()
+
+    while email_confirmacao != email or senha_confirmacao != senha:
+        print("\n---------------------------")
+        print("Email ou senha incorretos, por favor insira novamente")
+        email_confirmacao = input("\nEmail: ").strip()
+        senha_confirmacao = input("Senha: ").strip()
+
+    return email, senha
+
+def cadastrar_evento(data_inicial, data_final):
+    print("--------------------------")
+    print(f"Data da aula: {data_inicial.strftime('%d de %B')}")
+    user = input("\nDeseja efetuar seu cadastro? [S/N]: ").strip().upper()
+
+    while user not in "SN":
+        user = input("Por favor, digite S ou N: ").strip().upper()
+
+    if user == "S":
+        return cadastrar_usuario(), data_final - data_inicial
+    else:
+        return None, None
+
+def main():
+    data_inicial_muay_thai = datetime(2024, 12, 20)
+    data_final_muay_thai = datetime(2024, 11, 5)
+
+    data_inicial_boxe = datetime(2024, 4, 3)
+    data_final_boxe = datetime(2024, 3, 21)
+
+    data_inicial_karate = datetime(2024, 5, 15)
+    data_final_karate = datetime(2024, 2, 1)
+
+    print("""\n-|==>AULAS *GRATIS*<==|
+       Aulas disponíveis para Cadastro:
+            ( 1 ) Aula de Muay Thai
+            ( 2 ) Aula de Boxe
+            ( 3 ) Aula de Karatê
+            ( 4 ) Sair do programa
+    """)
+
+    user = int(input("\nQuais desses eventos você quer participar? "))
+
+    if user == 1:
+        email, senha = cadastrar_evento(data_inicial_muay_thai, data_final_muay_thai)
+    elif user == 2:
+        email, senha = cadastrar_evento(data_inicial_boxe, data_final_boxe)
+    elif user == 3:
+        email, senha = cadastrar_evento(data_inicial_karate, data_final_karate)
+    elif user == 4:
+        print("Okay, programa encerrado")
+        return
+    else:
+        print("Opção inválida")
+        return
+
+    if email is not None and senha is not None:
+        print("--------------------------")
+        print("\nEmail cadastrado com sucesso")
+        print(f"\nFaltam {senha.days} dias")
+        print("\nBoa aula! ;)")
+        print("--------------------------")
+
+if __name__ == "__main__":
+    main()
+
